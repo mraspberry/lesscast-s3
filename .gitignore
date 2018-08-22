@@ -102,5 +102,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
-.chalice/deployments/
-.chalice/venv/
+src/.chalice/deployments/
+src/.chalice/venv/
+src/.chalice/config.json
