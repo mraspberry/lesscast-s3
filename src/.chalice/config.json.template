@@ -3,7 +3,8 @@
   "app_name": "lesscast",
   "environment_variables": {
       "S3_BUCKET": "BUCKET",
-      "PIPELINE_ID": "PIPELINE"
+      "PIPELINE_ID": "PIPELINE",
+      "BUCKET_REGION": "AWS_REGION"
   },
   "stages": {
     "dev": {

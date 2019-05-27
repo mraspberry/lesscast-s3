@@ -6,7 +6,6 @@ name = "pypi"
 [packages]
 "boto3" = "*"
 feedgen = "*"
-pylint = "*"
 chalice = {git = "https://github.com/aws/chalice.git"}
 
 [dev-packages]

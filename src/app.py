@@ -63,21 +63,22 @@ def handle_audio(event):
 
 def _gen_rss(event):
     """Generate RSS feed file and place in bucket when file uploaded to S3"""
+    region = os.getenv('BUCKET_REGION')
     s3 = boto3.resource('s3')
     sbucket = s3.Bucket(event.bucket)
     dbucket = s3.Bucket('lesscast-web')
     fg = FeedGenerator()
     fg.title('Lesscast Uploads')
     fg.description('Created by lesscast')
-    fg.link(href='https://s3.amazonaws.com/{}/rss.xml'.format(dbucket.name))
+    fg.link(href='https://{}.s3.{}.amazonaws.com/rss.xml'.format(dbucket.name, region))
     fg.load_extension('podcast')
     fg.podcast.itunes_category('Technology', 'Podcasting')
     keyfunc = operator.attrgetter('last_modified')
     iterator = filter(_get_valid_files, sbucket.objects.all())
     for objsum in sorted(iterator, key=keyfunc):
         app.log.info('Adding %s to feed', objsum.key)
-        pub_url = 'https://s3.amazonaws.com/{}/{}'.format(
-            sbucket.name, objsum.key)
+        pub_url = 'https://{}.s3.{}.amazonaws.com/{}'.format(
+            sbucket.name, region, objsum.key)
         obj = objsum.Object()
         acl = obj.Acl()
         acl.put(ACL='public-read')
