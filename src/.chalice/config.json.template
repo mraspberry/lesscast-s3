@@ -2,7 +2,8 @@
   "version": "2.0",
   "app_name": "lesscast",
   "environment_variables": {
-      "S3_BUCKET": "BUCKET",
+      "CONTENT_BUCKET": "BUCKET",
+      "RSS_BUCKET": "BUCKET",
       "PIPELINE_ID": "PIPELINE",
       "BUCKET_REGION": "AWS_REGION"
   },

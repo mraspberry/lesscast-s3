@@ -7,7 +7,7 @@ import boto3
 from chalice import Chalice
 from feedgen.feed import FeedGenerator
 
-BUCKET = os.getenv('S3_BUCKET')
+BUCKET = os.getenv('CONTENT_BUCKET')
 app = Chalice(app_name='lesscast')
 app.log.setLevel(logging.DEBUG)
 
@@ -66,7 +66,7 @@ def _gen_rss(event):
     region = os.getenv('BUCKET_REGION')
     s3 = boto3.resource('s3')
     sbucket = s3.Bucket(event.bucket)
-    dbucket = s3.Bucket('lesscast-web')
+    dbucket = s3.Bucket(os.getenv('RSS_BUCKET'))
     fg = FeedGenerator()
     fg.title('Lesscast Uploads')
     fg.description('Created by lesscast')
